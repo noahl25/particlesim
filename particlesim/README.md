@@ -1,2 +1,1 @@
-# sdlengine
-2d engine using sdl for games. and desktop applications???
+this sucks big time so have low expectations
