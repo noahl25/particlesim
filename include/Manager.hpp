@@ -1,11 +1,11 @@
 #pragma once
 
 #include "Common.hpp"
+#include "Particle.hpp"
 
 #include <vector>
 
 class Particle;
-class ParticleType;
 
 
 class Manager {
@@ -21,11 +21,41 @@ public:
 
 	bool spawningParticles;
 
-	inline void addToCursorSize(uint8_t size) {this->cursorSize += ((cursorSize <= 20 && cursorSize >= 1 ) ? size : 0);}
+	inline void addToCursorSize(int8_t size) {
 
-	ParticleType* particleType;
 
-	inline void setParticleType(ParticleType type) { *particleType = type;}
+		if (size == 1 && cursorSize < 20) {
+			cursorSize++;
+		}
+		if (size == -1 && cursorSize > 1) {
+			cursorSize--;
+		}
+
+
+
+
+	}
+
+	ParticleType particleType;
+
+	inline void setParticleType(ParticleType type) { particleType = type;}
+
+	void resetScreen() {
+
+		for (auto& row : particles) {
+			for (auto& val : row) {
+				if (val != nullptr) {
+                	delete val; // Deallocate memory for Particle object
+                	val = nullptr;
+            	}
+			}
+		}
+
+		
+
+	
+
+	}
 
 private:
 

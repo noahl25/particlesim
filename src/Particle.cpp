@@ -9,6 +9,9 @@ Particle::Particle(ParticleType type) {
 	if (type == ParticleType::Sand) {
 		color = {194, 178, 128, 255};
 	}
+	if (type == ParticleType::Rock) {
+		color = {211, 211, 211, 255};
+	}
 }
 
 void Particle::draw(SDL_Renderer*& renderer, uint32_t x, uint32_t y) {

@@ -44,7 +44,7 @@ void Manager::update(int x, int y) {
 			if (inScreenBounds((int)coord->x/5, (int)coord->y/5)) {
 
 				if (particles[(int)(coord->y / 5)][(int)(coord->x / 5)] == nullptr) {
-					particles[(int)(coord->y / 5)][(int)(coord->x / 5)] = new Particle(*particleType);
+					particles[(int)(coord->y / 5)][(int)(coord->x / 5)] = new Particle(particleType);
 				}
 			}
 		}
@@ -88,6 +88,10 @@ void Manager::handleParticles() {
 					handleSand(x, y); 
 					break;
 
+				
+
+				case ParticleType::Rock:
+					break;
 				}
 
 			}

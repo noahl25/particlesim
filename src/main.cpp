@@ -5,6 +5,7 @@
 
 #include "Game.hpp"
 #include "Common.hpp"
+#include "TextureManager.hpp"
 
 #include <windows.h>
 
@@ -13,14 +14,17 @@ int main(int argc, char* args[]){
 
 	Game *game = nullptr;
 	game = new Game();
-	game->init("test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1000, 740, false);
-
+	game->init("test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 840, 600, false);
 
 	const int FPSTarget = 60;
 	const int deltaTimeTarget = 1000/FPSTarget;
 
 	Uint32 frameStart;
 	int frameTime;
+
+	int frames;
+	int prevTime = SDL_GetTicks();
+	const char* temp;
 
 	while (game->running()) {
 
@@ -31,6 +35,8 @@ int main(int argc, char* args[]){
 		game->render();
 
 		frameTime = SDL_GetTicks() - frameStart;
+		
+		frames++;
  
 		if (deltaTimeTarget > frameTime) {
 

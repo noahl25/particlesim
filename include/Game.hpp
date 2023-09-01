@@ -36,5 +36,7 @@ private:
 	bool paused;
 
 	UI* ui;
+
+	bool stepMode;
 	
 };

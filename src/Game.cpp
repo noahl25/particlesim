@@ -1,5 +1,6 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 
 #include "Game.hpp"
 #include "Debug.hpp"
@@ -37,6 +38,9 @@ void Game::init(const char* title, int x, int y, int width, int height, bool ful
 			SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 			_ASSERT("RENDERER INITIALIZED");
 		}
+		if ( TTF_Init() >= 0 ) {
+			_ASSERT("TTF INITIALIZED");
+		}
 
 		isRunning = true;
 	}
@@ -48,6 +52,8 @@ void Game::init(const char* title, int x, int y, int width, int height, bool ful
 
 	manager = new Manager();
 	ui = new UI();
+	
+	stepMode = false;
 
 
 	SDL_Rect rect{10, 10, 32, 32};
@@ -70,6 +76,34 @@ void Game::handleEvents() {
 		case SDL_QUIT:
 			isRunning = false;
 			break;
+
+		case SDL_KEYDOWN:
+
+			if (event.key.keysym.sym == SDLK_e) {
+
+				if (manager->particleType == ParticleType::Sand) {
+					manager->particleType = ParticleType::Rock;
+				}
+
+				else {
+					manager->particleType = ParticleType::Sand;
+				}
+
+
+			}
+
+			if (event.key.keysym.sym == SDLK_r) {
+				manager->resetScreen();
+			}
+
+			if (event.key.keysym.sym == SDLK_c) {
+				stepMode = true;
+			}
+
+			if (event.key.keysym.sym == SDLK_v && stepMode) {
+				paused = false;
+			}
+
 
 		case SDL_MOUSEBUTTONDOWN:
 
@@ -138,6 +172,7 @@ void Game::update() {
 		manager->update(x, y);
 		ui->update(x, y);
 
+		
 
 	}
 
@@ -154,6 +189,11 @@ void Game::render() {
 
 
 		SDL_RenderPresent(renderer);
+
+		if (stepMode) {
+			paused = true;
+		}
+
 	}
 }
 
