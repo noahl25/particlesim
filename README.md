@@ -1,2 +1,2 @@
-# particlesim
-particle sim with particles and fun 
+# sdlengine
+2d engine using sdl for games. and desktop applications???
